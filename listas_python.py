@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 
+"""
+
+    Programa desarrollado por el Licenciado César Cordero Rodríguez.
+    Bajo licencia GPLv3.
+    Puede ser modificado, copiado y distribuido.
+    Se desarrolló con fines educativos.
+
+"""
+
 class nodo():
     valor = None
     sig = None
@@ -12,7 +21,7 @@ class nodo():
         atras = None
         der = None
     
-    def setAdelante(self, adelante):
+    def setAdelante(self, sig):
         self.sig = sig
     
     def setAtras(self, atras):
