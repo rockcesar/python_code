@@ -1,3 +1,12 @@
+"""
+
+    Programa desarrollado por el Licenciado César Cordero Rodríguez.
+    Bajo licencia GPLv3.
+    Puede ser modificado, copiado y distribuido.
+    Se desarrolló con fines educativos.
+
+"""
+
 #
 # It does the function of 
 # MULTIPLO.SUPERIOR.XCL in Excel in Microsoft Office 

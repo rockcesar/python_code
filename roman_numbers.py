@@ -1,3 +1,12 @@
+"""
+
+    Programa desarrollado por el Licenciado César Cordero Rodríguez.
+    Bajo licencia GPLv3.
+    Puede ser modificado, copiado y distribuido.
+    Se desarrolló con fines educativos.
+
+"""
+
 #
 # Running example:
 # python roman_numbers.py MMXVIII
