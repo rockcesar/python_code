@@ -1,4 +1,8 @@
 #
+# It does the function of 
+# MULTIPLO.SUPERIOR.XCL in Excel in Microsoft Office 
+#                       and Calc in LibreOffice
+#
 # Running example:
 # python round.py 5.9 0.9 2
 # Result: Rounded 6.3
