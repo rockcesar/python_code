@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 
     Programa desarrollado por el Licenciado César Cordero Rodríguez.
