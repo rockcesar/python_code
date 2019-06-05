@@ -9,7 +9,7 @@
     Si se hacen copias, debe ser referido el autor: Licenciado César Cordero Rodríguez.
 """
 
-A translator in Python using Tor Proxy:
+# A translator in Python using Tor Proxy:
 
 from py_translator import Translator
 import sys
