@@ -18,5 +18,5 @@ proxy = {
         'socks': 'socks://localhost:9050',
         'socks': 'socks://localhost:9050',
 }
-s = Translator(proxies=proxy).translate(text=sys.argv[1], dest='es').text
+s = Translator(proxies=proxy).translate(text=sys.argv[1], dest=sys.argv[2]).text
 print(s)
