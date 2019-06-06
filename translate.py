@@ -14,8 +14,6 @@
 from py_translator import Translator
 import sys
 
-#from py_translator import TEXTLIB
-
 proxy = {
         'socks': 'socks://localhost:9050',
         'socks': 'socks://localhost:9050',
