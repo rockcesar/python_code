@@ -28,7 +28,7 @@ text = ""
 if len(sys.argv) == 3:
    text = sys.argv[1]
 elif len(sys.argv) == 4 and sys.argv[3] == "using_file":
-   file = open("file_to_translate.txt", "r")
+   file = open(sys.argv[1], "r")
    text = file.read()
 
 s = Translator(proxies=proxy).translate(text=text, dest=sys.argv[2]).text
