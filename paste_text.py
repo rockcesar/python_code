@@ -14,10 +14,10 @@ import time
 
 keyboard = Controller()
 
-password="text_pasted"
+text="text_pasted"
 
 time.sleep(2)
 
-for s in password:
+for s in text:
     keyboard.press(s)
     keyboard.release(s)
