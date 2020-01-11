@@ -5,8 +5,7 @@
     Bajo licencia GPLv3.
     Puede ser modificado, copiado y distribuido.
     Se desarrolló con fines educativos.
-    
-    Si se hacen copias, debe ser referido el autor: Licenciado César Cordero Rodríguez.
+
 """
 
 def fibonacci(number_1, number_2, first, count):
