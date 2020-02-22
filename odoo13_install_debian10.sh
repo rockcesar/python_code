@@ -1,8 +1,8 @@
 #!/bin/bash
 ################################################################################
 # Script for installing Odoo on Debian 10.0 (could be used for other version too)
-# Author: Yenthe Van Ginneken
-# Maintainer: César Cordero Rodríguez
+# Author: Yenthe Van Ginneken, César Cordero Rodríguez
+# Maintainer: Yenthe Van Ginneken, César Cordero Rodríguez
 #-------------------------------------------------------------------------------
 # This script will install Odoo on your Debian 10.0 server. It can install multiple Odoo instances
 # in one Debian because of the different xmlrpc_ports
@@ -69,7 +69,7 @@ sudo su - postgres -c "createuser -s $OE_USER" 2> /dev/null || true
 # Install Dependencies
 #--------------------------------------------------
 echo -e "\n--- Installing Python 3 + pip3 --"
-sudo apt-get install git python3 python3-pip build-essential wget python3-dev python3-venv python3-wheel libxslt-dev -y
+sudo apt-get install git python3 python3-pip build-essential wget python3-dev python3-venv python3-wheel libxslt1-dev -y
 sudo apt-get install libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less gdebi -y
 
 echo -e "\n---- Install python packages/requirements ----"
