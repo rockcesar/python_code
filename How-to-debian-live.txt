@@ -11,16 +11,11 @@ Con los siguientes comandos en Debian 10, podrás construir una distribución co
 
 Code:
     apt-get install live-build
-
     mkdir live-default && cd live-default
     lb clean
-
     lb config --archive-areas "main contrib non-free" --iso-application "Debian Live Utilities" --linux-packages "linux-image linux-headers" --architectures "amd64" --distribution "buster"
-
     echo 'linux-image-amd64 linux-headers-amd64 task-mate-desktop task-mate-laptop build-essential nmap zenmap firefox-esr firefox-esr-l10n-es-mx tor libreoffice inkscape gimp dia' > config/package-lists/mylist.chroot
-
     echo 'linux-image-amd64 linux-headers-amd64 task-mate-desktop task-mate-laptop build-essential nmap zenmap firefox-esr firefox-esr-l10n-es-mx tor libreoffice inkscape gimp dia' > config/package-lists/mylist.binary
-
      lb build
 
 Imagen resultante:
