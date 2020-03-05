@@ -10,6 +10,7 @@ Debes primero hacer entrevistas a la población, para ver cuales son las necesid
 Con los siguientes comandos en Debian 10, podrás construir una distribución con parámetros por defecto:
 
 Code:
+    sudo su
     apt-get install live-build
     mkdir live-default && cd live-default
     lb clean
