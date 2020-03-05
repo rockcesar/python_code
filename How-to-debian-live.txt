@@ -15,11 +15,11 @@ Code:
     mkdir live-default && cd live-default
     lb clean
 
-    lb config --archive-areas "main contrib non-free" --iso-application "Debian Live Utilities" --linux-packages "linux-image-amd64 linux-headers-amd64" --architectures "amd64" --distribution "buster"
+    lb config --archive-areas "main contrib non-free" --iso-application "Debian Live Utilities" --linux-packages "linux-image linux-headers" --architectures "amd64" --distribution "buster"
 
-    echo 'linux-image-amd64 linux-headers-amd64 task-mate-desktop task-mate-laptop build-essential nmap zenmap firefox-esr firefox-esr-l10n-es-mx tor libreoffice inkscape gimp dia' &gt;&gt; config/packages.binary/mylist.chroot
+    echo 'linux-image-amd64 linux-headers-amd64 task-mate-desktop task-mate-laptop build-essential nmap zenmap firefox-esr firefox-esr-l10n-es-mx tor libreoffice inkscape gimp dia' > config/package-lists/mylist.chroot
 
-    echo 'linux-image-amd64 linux-headers-amd64 task-mate-desktop task-mate-laptop build-essential nmap zenmap firefox-esr firefox-esr-l10n-es-mx tor libreoffice inkscape gimp dia' &gt;&gt; config/packages.binary/mylist.binary
+    echo 'linux-image-amd64 linux-headers-amd64 task-mate-desktop task-mate-laptop build-essential nmap zenmap firefox-esr firefox-esr-l10n-es-mx tor libreoffice inkscape gimp dia' > config/package-lists/mylist.binary
 
      lb build
 
