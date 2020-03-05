@@ -1,0 +1,38 @@
+https://dev-rockcesar.blogspot.com/2020/03/como-hacer-una-distribucion-basada-en.html
+https://youtu.be/9rDVIJAdOjw
+
+¿Cómo hacer una Distribución basada en Debian?.
+
+Una distribución es un compendio de Softwares, para realizar tareas específicas, para una población en particular.
+
+Debes primero hacer entrevistas a la población, para ver cuales son las necesidades que tienen, y cómo las cumplirás con la distribución. Luego, debes buscar los Softwares que cumplan con esas necesidades. Utilizas la herramienta live-build para construirlo.
+
+Con los siguientes comandos en Debian 10, podrás construir una distribución con parámetros por defecto:
+
+Code:
+    apt-get install live-build
+
+    mkdir live-default && cd live-default
+    lb clean
+
+    lb config --archive-areas "main contrib non-free" --iso-application "Debian Live Utilities" --linux-packages "linux-image-amd64 linux-headers-amd64" --architectures "amd64" --distribution "buster"
+
+    echo 'linux-image-amd64 linux-headers-amd64 task-mate-desktop task-mate-laptop build-essential nmap zenmap firefox-esr firefox-esr-l10n-es-mx tor libreoffice inkscape gimp dia' &gt;&gt; config/packages.binary/mylist.chroot
+
+    echo 'linux-image-amd64 linux-headers-amd64 task-mate-desktop task-mate-laptop build-essential nmap zenmap firefox-esr firefox-esr-l10n-es-mx tor libreoffice inkscape gimp dia' &gt;&gt; config/packages.binary/mylist.binary
+
+     lb build
+
+Imagen resultante:
+    live-image-amd64.hybrid.iso
+
+Ver el siguiente link, para ver las variantes:
+    https://live-team.pages.debian.net/live-manual/html/live-manual/the-basics.es.html#169
+
+Manual completo:
+    https://live-team.pages.debian.net/live-manual/html/live-manual/index.es.html
+
+Me pueden consultar al siguiente correo:
+    cesar.cordero.r@gmail.com
+
+Mi Tesis de pregrado fue hacer una Distribución de GNU/Linux basada en Debian para estudiantes de Computación de la Universidad del Zulia, en Venezuela, hace 10 años.
