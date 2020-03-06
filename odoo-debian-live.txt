@@ -15,6 +15,7 @@ Code:
     apt-get install live-build
 
     #Server: Use the following commands to build a Server based distro for Odoo.
+    sudo su
     mkdir live-odoo-server && cd live-odoo-server
     lb clean
     lb config --archive-areas "main contrib non-free" --iso-application "Debian Live 10 Odoo 13" --iso-preparer "cesar.cordero.r@gmail.com" --iso-publisher "cesar.cordero.r@gmail.com" --iso-volume "Debian Live 10 Odoo 13" --linux-packages "linux-image linux-headers" --architectures "amd64" --distribution "buster" --debian-installer "live" --bootappend-live "boot=live components username=user hostname=debian timezone=America/Caracas locales=es_VE.UTF-8 keyboard-layouts=latam"
@@ -26,6 +27,7 @@ Code:
     #END Server based
 
     #Desktop: Use the following commands to build a Desktop based distro for Odoo.
+    sudo su
     mkdir ../live-odoo && cd ../live-odoo
     lb clean
     lb config --archive-areas "main contrib non-free" --iso-application "Debian Live 10 Odoo 13 Desktop" --iso-preparer "cesar.cordero.r@gmail.com" --iso-publisher "cesar.cordero.r@gmail.com" --iso-volume "Debian Live 10 Odoo 13 Desktop" --linux-packages "linux-image linux-headers" --architectures "amd64" --distribution "buster" --debian-installer "live" --bootappend-live "boot=live components username=user hostname=debian timezone=America/Caracas locales=es_VE.UTF-8 keyboard-layouts=latam"
