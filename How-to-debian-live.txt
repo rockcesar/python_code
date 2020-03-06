@@ -25,6 +25,7 @@ Code:
     lb clean
     lb config --archive-areas "main contrib non-free" --iso-application "Debian Live 10 Odoo 13" --iso-preparer "cesar.cordero.r@gmail.com" --iso-publisher "cesar.cordero.r@gmail.com" --iso-volume "Debian Live 10 Odoo 13" --linux-packages "linux-image linux-headers" --architectures "amd64" --distribution "buster" --debian-installer "live"
     echo 'deb http://nightly.odoo.com/13.0/nightly/deb/ ./' > config/archives/odoo.list.chroot
+    wget -O - https://nightly.odoo.com/odoo.key > odoo.key
     cp odoo.key config/archives/odoo.key.chroot
     echo 'debian-installer-launcher linux-image-amd64 linux-headers-amd64 build-essential nmap zenmap tor python3 python3-pip python python-pip nano postgresql odoo' > config/package-lists/odoo.list.chroot
     lb build
