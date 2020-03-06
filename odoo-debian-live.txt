@@ -1,0 +1,34 @@
+https://dev-rockcesar.blogspot.com/2020/03/como-hacer-una-distribucion-basada-en.html
+https://youtu.be/9rDVIJAdOjw
+
+¿How to make a distro based in Debian for Odoo?.
+
+A distribution is a compendium of Softwares, to perform specific tasks, for a particular population.
+
+You must first do interviews with the population, to see what their needs are, and how you will meet them with the distribution. Then, you should look for softwares that meet those needs. You use the live-build tool to build it.
+
+With the following commands in Debian 10, you can build a distribution with default parameters:
+
+Code:
+    mkdir live-odoo && cd live-odoo
+    lb clean
+    lb config --archive-areas "main contrib non-free" --iso-application "Debian Live 10 Odoo 13" --iso-preparer "cesar.cordero.r@gmail.com" --iso-publisher "cesar.cordero.r@gmail.com" --iso-volume "Debian Live 10 Odoo 13" --linux-packages "linux-image linux-headers" --architectures "amd64" --distribution "buster" --debian-installer "live"
+    echo 'deb http://nightly.odoo.com/13.0/nightly/deb/ ./' > config/archives/odoo.list.chroot
+    wget -O - https://nightly.odoo.com/odoo.key > odoo.key
+    cp odoo.key config/archives/odoo.key.chroot
+    echo 'debian-installer-launcher linux-image-amd64 linux-headers-amd64 build-essential nmap zenmap tor python3 python3-pip python python-pip nano postgresql odoo' > config/package-lists/odoo.list.chroot
+    lb build
+
+Resulting Image:
+    live-image-amd64.hybrid.iso
+
+See the following link, to see the variants:
+    https://live-team.pages.debian.net/live-manual/html/live-manual/the-basics.es.html#169
+
+Complete manual:
+    https://live-team.pages.debian.net/live-manual/html/live-manual/index.es.html
+
+You can consult me at the following email:
+    cesar.cordero.r@gmail.com
+    
+My undergraduate thesis was to make a Debian-based GNU/Linux Distribution for Computer students at the University of Zulia, in Venezuela, 10 years ago.
