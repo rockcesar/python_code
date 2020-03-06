@@ -16,7 +16,7 @@ Code:
     echo 'deb http://nightly.odoo.com/13.0/nightly/deb/ ./' > config/archives/odoo.list.chroot
     wget -O - https://nightly.odoo.com/odoo.key > odoo.key
     cp odoo.key config/archives/odoo.key.chroot
-    echo 'linux-image-amd64 linux-headers-amd64 build-essential nmap tor python3 python3-pip python python-pip nano postgresql odoo' > config/package-lists/odoo.list.chroot
+    echo 'linux-image-amd64 linux-headers-amd64 build-essential nmap tor python3 python3-pip python python-pip nano w3m vim mc postgresql odoo' > config/package-lists/odoo.list.chroot
     lb build
 
 Resulting Image:
