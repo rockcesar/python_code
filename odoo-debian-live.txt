@@ -12,7 +12,7 @@ With the following commands in Debian 10, you can build a distribution with defa
 Code:
     mkdir live-odoo && cd live-odoo
     lb clean
-    lb config --archive-areas "main contrib non-free" --iso-application "Debian Live 10 Odoo 13" --iso-preparer "cesar.cordero.r@gmail.com" --iso-publisher "cesar.cordero.r@gmail.com" --iso-volume "Debian Live 10 Odoo 13" --linux-packages "linux-image linux-headers" --architectures "amd64" --distribution "buster" --debian-installer "live"
+    lb config --archive-areas "main contrib non-free" --iso-application "Debian Live 10 Odoo 13" --iso-preparer "cesar.cordero.r@gmail.com" --iso-publisher "cesar.cordero.r@gmail.com" --iso-volume "Debian Live 10 Odoo 13" --linux-packages "linux-image linux-headers" --architectures "amd64" --distribution "buster" --debian-installer "live" --bootappend-live "boot=live components username=user hostname=debian timezone=America/Caracas locales=es_VE.UTF-8 keyboard-layouts=latam keyboard-variants=nodeadkeys"
     echo 'deb http://nightly.odoo.com/13.0/nightly/deb/ ./' > config/archives/odoo.list.chroot
     wget -O - https://nightly.odoo.com/odoo.key > odoo.key
     cp odoo.key config/archives/odoo.key.chroot
