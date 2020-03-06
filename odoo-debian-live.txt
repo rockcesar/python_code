@@ -10,7 +10,16 @@ You must first do interviews with the population, to see what their needs are, a
 With the following commands in Debian 10, you can build a distribution with default parameters:
 
 Code:
-    mkdir live-odoo && cd live-odoo
+    mkdir live-odoo-server && cd live-odoo-server
+    lb clean
+    lb config --archive-areas "main contrib non-free" --iso-application "Debian Live 10 Odoo 13" --iso-preparer "cesar.cordero.r@gmail.com" --iso-publisher "cesar.cordero.r@gmail.com" --iso-volume "Debian Live 10 Odoo 13" --linux-packages "linux-image linux-headers" --architectures "amd64" --distribution "buster" --debian-installer "live" --bootappend-live "boot=live components username=user hostname=debian timezone=America/Caracas locales=es_VE.UTF-8 keyboard-layouts=latam"
+    echo 'deb http://nightly.odoo.com/13.0/nightly/deb/ ./' > config/archives/odoo.list.chroot
+    wget -O - https://nightly.odoo.com/odoo.key > odoo.key
+    cp odoo.key config/archives/odoo.key.chroot
+    echo 'linux-image-amd64 linux-headers-amd64 build-essential nmap tor python3 python3-pip python python-pip nano w3m vim mc postgresql odoo' > config/package-lists/odoo.list.chroot
+    lb build
+
+    mkdir ../live-odoo && cd ../live-odoo
     lb clean
     lb config --archive-areas "main contrib non-free" --iso-application "Debian Live 10 Odoo 13 Desktop" --iso-preparer "cesar.cordero.r@gmail.com" --iso-publisher "cesar.cordero.r@gmail.com" --iso-volume "Debian Live 10 Odoo 13 Desktop" --linux-packages "linux-image linux-headers" --architectures "amd64" --distribution "buster" --debian-installer "live" --bootappend-live "boot=live components username=user hostname=debian timezone=America/Caracas locales=es_VE.UTF-8 keyboard-layouts=latam"
     echo 'deb http://nightly.odoo.com/13.0/nightly/deb/ ./' > config/archives/odoo.list.chroot
