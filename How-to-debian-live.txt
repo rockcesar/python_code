@@ -19,11 +19,14 @@ Code:
     ##echo 'linux-image-amd64 linux-headers-amd64 task-mate-desktop task-laptop build-essential nmap zenmap firefox-esr firefox-esr-l10n-es-mx tor libreoffice inkscape gimp dia blender transmission-gtk vlc shotwell pidgin geany bluefish python3 python3-pip python python-pip gedit openjdk-11-jdk swi-prolog postgresql firmware-linux-free firmware-iwlwifi firmware-adi firmware-ath9k-htc firmware-ath9k-htc-dbgsym firmware-atheros firmware-b43-installer firmware-b43legacy-installer firmware-bnx2 firmware-bnx2x firmware-brcm80211 firmware-cavium firmware-intel-sound firmware-intelwimax firmware-ipw2x00 firmware-iwlwifi firmware-libertas firmware-linux firmware-linux-free firmware-linux-free firmware-linux-nonfree firmware-microbit-micropython firmware-misc-nonfree firmware-misc-nonfree firmware-myricom firmware-netronome firmware-netxen firmware-qcom-media firmware-qlogic firmware-ralink firmware-realtek firmware-samsung firmware-siano firmware-ti-connectivity firmware-zd1211' > config/package-lists/mylist.list.binary
     lb build
 
+
+
     mkdir live-odoo && cd live-odoo
     lb clean
     lb config --archive-areas "main contrib non-free" --iso-application "Debian Live 10 Odoo 13" --iso-preparer "cesar.cordero.r@gmail.com" --iso-publisher "cesar.cordero.r@gmail.com" --iso-volume "Debian Live 10 Odoo 13" --linux-packages "linux-image linux-headers" --architectures "amd64" --distribution "buster" --debian-installer "live"
-    
-    echo 'debian-installer-launcher linux-image-amd64 linux-headers-amd64 build-essential nmap zenmap tor python3 python3-pip python python-pip nano odoo' > config/package-lists/odoo.list.chroot
+    echo 'deb http://nightly.odoo.com/13.0/nightly/deb/ ./' > config/archives/odoo.list.chroot
+    cp odoo.key config/archives/odoo.key.chroot
+    echo 'debian-installer-launcher linux-image-amd64 linux-headers-amd64 build-essential nmap zenmap tor python3 python3-pip python python-pip nano postgresql odoo' > config/package-lists/odoo.list.chroot
     lb build
 
 Imagen resultante:
