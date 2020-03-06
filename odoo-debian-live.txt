@@ -10,6 +10,8 @@ You must first do interviews with the population, to see what their needs are, a
 With the following commands in Debian 10, you can build a distribution with default parameters:
 
 Code:
+    #Use the following command to install live-build
+    sudo su
     apt-get install live-build
 
     #Server: Use the following commands to build a Server based distro for Odoo.
