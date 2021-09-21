@@ -39,4 +39,4 @@ Manual completo:
 Me pueden consultar al siguiente correo:
     cesar.cordero.r@gmail.com
 
-Mi Tesis de pregrado fue hacer una Distribución de GNU/Linux basada en Debian para estudiantes de Computación de la Universidad del Zulia, en Venezuela, hace 10 años.
+Mi Tesis de pregrado fue hacer una Distribución de GNU/Linux basada en Debian para estudiantes de Computación de la Universidad del Zulia, en Venezuela, en el 2009.
