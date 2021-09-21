@@ -50,4 +50,4 @@ Complete manual:
 You can consult me at the following email:
     cesar.cordero.r@gmail.com
     
-My undergraduate thesis was to make a Debian-based GNU/Linux Distribution for Computer students at the University of Zulia, in Venezuela, 10 years ago.
+My undergraduate thesis was to make a Debian-based GNU/Linux Distribution for Computer students at the University of Zulia, in Venezuela, en el 2009.
