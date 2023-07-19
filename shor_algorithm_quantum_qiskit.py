@@ -13,7 +13,7 @@
 #pip3 install qiskit
 #pip3 install matplotlib
 #pip3 install pylatexenc
-#pip3 install numpy matplotlib pandas
+#pip3 install numpy pandas
 
 import matplotlib.pyplot as plt
 import numpy as np
