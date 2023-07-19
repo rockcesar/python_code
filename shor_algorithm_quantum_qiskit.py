@@ -13,7 +13,7 @@
 #pip3 install qiskit
 #pip3 install matplotlib
 #pip3 install pylatexenc
-#pip3 install numpy pandas
+#pip3 install numpy matplotlib pandas
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -110,3 +110,77 @@ df = pd.DataFrame(rows, columns=headers)
 print(df)
 
 plt.show()
+
+def a2jmodN(a, j, N):
+    """Compute a^{2^j} (mod N) by repeated squaring"""
+    for _ in range(j):
+        a = np.mod(a**2, N)
+    return a
+
+print(a2jmodN(7, 2049, 53))
+
+N = 15
+
+np.random.seed(1) # This is to make sure we get reproduceable results
+a = randint(2, 15)
+print(a)
+
+from math import gcd # greatest common divisor
+gcd(a, N)
+
+def qpe_amod15(a):
+    """Performs quantum phase estimation on the operation a*r mod 15.
+    Args:
+        a (int): This is 'a' in a*r mod 15
+    Returns:
+        float: Estimate of the phase
+    """
+    N_COUNT = 8
+    qc = QuantumCircuit(4+N_COUNT, N_COUNT)
+    for q in range(N_COUNT):
+        qc.h(q)     # Initialize counting qubits in state |+>
+    qc.x(3+N_COUNT) # And auxiliary register in state |1>
+    for q in range(N_COUNT): # Do controlled-U operations
+        qc.append(c_amod15(a, 2**q),
+                 [q] + [i+N_COUNT for i in range(4)])
+    qc.append(qft_dagger(N_COUNT), range(N_COUNT)) # Do inverse-QFT
+    qc.measure(range(N_COUNT), range(N_COUNT))
+    # Simulate Results
+    aer_sim = Aer.get_backend('aer_simulator')
+    # `memory=True` tells the backend to save each measurement in a list
+    job = aer_sim.run(transpile(qc, aer_sim), shots=1, memory=True)
+    readings = job.result().get_memory()
+    print("Register Reading: " + readings[0])
+    phase = int(readings[0],2)/(2**N_COUNT)
+    print(f"Corresponding Phase: {phase}")
+    return phase
+
+phase = qpe_amod15(a) # Phase = s/r
+Fraction(phase).limit_denominator(15)
+
+frac = Fraction(phase).limit_denominator(15)
+s, r = frac.numerator, frac.denominator
+print(r)
+
+guesses = [gcd(a**(r//2)-1, N), gcd(a**(r//2)+1, N)]
+print(guesses)
+
+a = 7
+FACTOR_FOUND = False
+ATTEMPT = 0
+while not FACTOR_FOUND:
+    ATTEMPT += 1
+    print(f"\nATTEMPT {ATTEMPT}:")
+    phase = qpe_amod15(a) # Phase = s/r
+    frac = Fraction(phase).limit_denominator(N)
+    r = frac.denominator
+    print(f"Result: r = {r}")
+    if phase != 0:
+        # Guesses for factors are gcd(x^{r/2} ±1 , 15)
+        guesses = [gcd(a**(r//2)-1, N), gcd(a**(r//2)+1, N)]
+        print(f"Guessed Factors: {guesses[0]} and {guesses[1]}")
+        for guess in guesses:
+            if guess not in [1,N] and (N % guess) == 0:
+                # Guess is a factor!
+                print("*** Non-trivial factor found: {guess} ***")
+                FACTOR_FOUND = True
