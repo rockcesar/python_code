@@ -122,7 +122,7 @@ print(a2jmodN(7, 2049, 53))
 N = 15
 
 np.random.seed(1) # This is to make sure we get reproduceable results
-a = randint(2, 15)
+a = randint(2, N)
 print(a)
 
 from math import gcd # greatest common divisor
