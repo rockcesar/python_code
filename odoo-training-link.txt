@@ -1,3 +1,7 @@
 Odoo Technical Training en Español, link:
 
 https://drive.google.com/drive/folders/1x0Bmi4lLhKhCr9h83wBwnj8sou3TcK07?usp=drive_link
+
+También está aquí (It's also here):
+
+https://github.com/rockcesar/python_code/tree/master/Odoo%20Technical%20Training%20en%20Espa%C3%B1ol%20(files)
