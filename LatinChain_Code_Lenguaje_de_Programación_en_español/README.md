@@ -89,14 +89,19 @@ variable b = 1;
 variable siguiente = 0;
 
 imprimir(a);
+
 imprimir(b);
 
 siguiente = a + b;
 
 mientras (siguiente <= limite) {
+    
     imprimir(siguiente);
+    
     a = b;
+    
     b = siguiente;
+    
     siguiente = a + b;
 }
 
