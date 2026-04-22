@@ -40,6 +40,7 @@ Para hacer funcionar el motor de LatinChain Code, solo necesitas tener instalado
 Clona este repositorio:
 
 git clone [https://github.com/rockcesar/python_code.git](https://github.com/rockcesar/python_code.git)
+
 cd python_code/LatinChain_Code_Lenguaje_de_Programación_en_español
 
 
