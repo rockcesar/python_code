@@ -1,0 +1,42 @@
+// Programa: Secuencia de Fibonacci
+// Escrito en LatinChain Code
+// Creador del Lenguaje: Lcdo. César Cordero
+//
+// INSTRUCCIONES DE USO (Requiere latinchain.py):
+// 1. Interpretar al vuelo: python3 latinchain.py run fibonacci.la
+// 2. Compilar a binario:   python3 latinchain.py compile fibonacci.la
+// 3. Ejecutar binario:     python3 latinchain.py exec fibonacci.lac
+
+imprimir("--- SECUENCIA DE FIBONACCI ---");
+
+// Definimos hasta qué número queremos calcular la secuencia
+variable limite = 100;
+
+// Variables iniciales de la secuencia
+variable a = 0;
+variable b = 1;
+variable siguiente = 0;
+
+imprimir("Generando numeros menores o iguales a:");
+imprimir(limite);
+imprimir("----------------------------------------");
+
+// Imprimimos los dos primeros números
+imprimir(a);
+imprimir(b);
+
+// Calculamos el siguiente número
+siguiente = a + b;
+
+// Bucle para calcular el resto de la secuencia
+mientras (siguiente <= limite) {
+    imprimir(siguiente);
+    
+    // Actualizamos los valores para la siguiente iteración
+    a = b;
+    b = siguiente;
+    siguiente = a + b;
+}
+
+imprimir("----------------------------------------");
+imprimir("Programa finalizado con exito.");
