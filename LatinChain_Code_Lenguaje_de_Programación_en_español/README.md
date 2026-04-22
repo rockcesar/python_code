@@ -81,8 +81,11 @@ El siguiente es un ejemplo de un programa escrito en LatinChain Code que calcula
 imprimir("--- SECUENCIA DE FIBONACCI ---");
 
 variable limite = 100;
+
 variable a = 0;
+
 variable b = 1;
+
 variable siguiente = 0;
 
 imprimir(a);
