@@ -9,9 +9,12 @@ Licencia: GNU GPLv3
 Basado en: Python 3 (Máquina Virtual y Compilador)
 
 INSTRUCCIONES DE USO (Requiere latinchain.py):
-1. Interpretar al vuelo: python3 latinchain.py run fibonacci.la
-2. Compilar a binario:   python3 latinchain.py compile fibonacci.la
-3. Ejecutar binario:     python3 latinchain.py exec fibonacci.lac
+1. Interpretar al vuelo:
+python3 latinchain.py run fibonacci.la
+2. Compilar a binario:
+python3 latinchain.py compile fibonacci.la
+3. Ejecutar binario:
+python3 latinchain.py exec fibonacci.lac
 
 ✨ Características Principales
 
