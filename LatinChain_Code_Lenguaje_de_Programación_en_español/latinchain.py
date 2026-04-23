@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ==============================================================================
-# LATINCHAIN CODE - LENGUAJE DE PROGRAMACIÓN EN ESPAÑOL MULTIPLATAFORMA
+# LATINCHAIN CODE - LENGUAJE DE PROGRAMACIÓN MULTIPLATAFORMA
 # Creador: Lcdo. César Cordero
 # ==============================================================================
 # 
@@ -32,7 +32,7 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 TOKEN_TYPES = [
     ('COMMENT', r'//.*'),
-    ('KEYWORD', r'\b(variable|si|mientras|imprimir|verdadero|falso)\b'),
+    ('KEYWORD', r'\b(variable|si|mientras|imprimir|verdadero|falso|importar)\b'),
     ('IDENTIFIER', r'[a-zA-Z_áéíóúÁÉÍÓÚñÑüÜ][a-zA-Z0-9_áéíóúÁÉÍÓÚñÑüÜ]*'),
     ('NUMBER', r'\d+(\.\d+)?'),
     ('STRING', r'"[^"]*"'),
@@ -107,11 +107,20 @@ class Parser:
             if tok.value == 'imprimir': return self.parse_print()
             if tok.value == 'si': return self.parse_if()
             if tok.value == 'mientras': return self.parse_while()
+            if tok.value == 'importar': return self.parse_import()
         
         if tok.type == 'IDENTIFIER':
             return self.parse_assignment()
             
         raise SyntaxError(f"Declaración inválida comenzando con: {tok.value}")
+
+    def parse_import(self):
+        self.eat('KEYWORD', 'importar')
+        module_name = self.eat('IDENTIFIER').value
+        # Hacemos el punto y coma opcional al importar
+        if self.current() and self.current().type == 'PUNCTUATION' and self.current().value == ';':
+            self.eat('PUNCTUATION', ';')
+        return ('IMPORT', module_name)
 
     def parse_var_decl(self):
         self.eat('KEYWORD', 'variable')
@@ -209,6 +218,7 @@ class Parser:
 class Compiler:
     def __init__(self):
         self.instructions = []
+        self.imported_modules = set() # Evita bucles infinitos de importación
 
     def compile(self, ast):
         for stmt in ast:
@@ -220,7 +230,28 @@ class Compiler:
         return len(self.instructions) - 1
 
     def visit(self, node):
-        if node[0] == 'VAR_DECL' or node[0] == 'ASSIGN':
+        if node[0] == 'IMPORT':
+            module_name = node[1]
+            if module_name not in self.imported_modules:
+                self.imported_modules.add(module_name)
+                filename = f"{module_name}.la"
+                
+                if not os.path.exists(filename):
+                    raise FileNotFoundError(f"Error de Compilación: El módulo '{filename}' no fue encontrado en el directorio.")
+                
+                # Leer y compilar el módulo externo
+                with open(filename, 'r', encoding='utf-8') as f:
+                    source = f.read()
+                
+                lexer = Lexer(source)
+                parser = Parser(lexer.tokens)
+                module_ast = parser.parse()
+                
+                # Inyectar las instrucciones del módulo en el programa principal
+                for stmt in module_ast:
+                    self.visit(stmt)
+
+        elif node[0] == 'VAR_DECL' or node[0] == 'ASSIGN':
             self.visit(node[2])
             self.emit('STORE', node[1])
         elif node[0] == 'PRINT':
@@ -312,9 +343,9 @@ def main():
     if len(sys.argv) < 3:
         print_banner()
         print("\nUso:")
-        print("  python3 latinchain.py run archivo.la    (Interpretar código fuente)")
-        print("  python3 latinchain.py compile archivo.la (Compilar a ejecutable .lac)")
-        print("  python3 latinchain.py exec archivo.lac  (Ejecutar binario compilado)")
+        print("  python latinchain.py run archivo.la    (Interpretar código fuente)")
+        print("  python latinchain.py compile archivo.la (Compilar a ejecutable .lac)")
+        print("  python latinchain.py exec archivo.lac  (Ejecutar binario compilado)")
         sys.exit(1)
 
     command = sys.argv[1]
