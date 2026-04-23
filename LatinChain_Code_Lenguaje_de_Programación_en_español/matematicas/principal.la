@@ -1,5 +1,5 @@
 // principal.la
-importar ./mat*
+importar ./math*
 
 imprimir("Estamos en el programa principal.");
 imprimir("El valor de PI es:");
