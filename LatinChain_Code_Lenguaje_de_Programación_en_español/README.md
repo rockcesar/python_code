@@ -2,11 +2,11 @@ LatinChain Code 🚀
 
 LatinChain Code es un lenguaje de programación multiplataforma, interpretado y compilado a bytecode, diseñado completamente con sintaxis en español. Fue creado con el propósito de ser una herramienta intuitiva y accesible para hispanohablantes, permitiendo escribir algoritmos de forma natural y clara.
 
-Creador: Lcdo. César Cordero
+Creador: Lcdo. César Cordero.
 
-Licencia: GNU GPLv3
+Licencia: GNU GPLv3.
 
-Basado en: Python 3 (Máquina Virtual y Compilador)
+Basado en: Python 3 (Máquina Virtual y Compilador).
 
 INSTRUCCIONES DE USO (Requiere latinchain.py):
 1. Interpretar al vuelo:
