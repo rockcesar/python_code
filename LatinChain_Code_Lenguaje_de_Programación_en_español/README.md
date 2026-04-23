@@ -14,7 +14,7 @@ Basado en: Python 3 (Máquina Virtual y Compilador)
 
 🌎 Soporte UTF-8 Nativo: Permite el uso de caracteres especiales del español (como la ñ y las vocales acentuadas) tanto en cadenas de texto como en nombres de variables y funciones.
 
-🧩 Sistema de Módulos Avanzado: Divide y organiza tu código en múltiples archivos y carpetas. El motor entiende el contexto del directorio actual y soporta importaciones mediante rutas relativas (./, ../) y absolutas (/).
+🧩 Sistema de Módulos Avanzado: Divide y organiza tu código en múltiples archivos y carpetas. El motor entiende el contexto del directorio actual y soporta importaciones mediante rutas relativas (./, ../), absolutas (/) y el uso de comodines y prefijos (*).
 
 ⚡ Ejecución Directa (Intérprete): Capacidad de leer y ejecutar código fuente (archivos .la) al vuelo.
 
@@ -85,7 +85,23 @@ El motor es capaz de navegar por tu sistema de archivos partiendo de la ubicaci�
     importar /home/usuario1/matematicas/maths
 
 
-Nota: Al compilar el archivo principal, el compilador de LatinChain buscará en las rutas indicadas e incluirá automáticamente el código de todos los módulos dentro del binario final .lac.
+Importación masiva con Comodines y Prefijos (*):
+Si deseas cargar múltiples módulos a la vez, puedes usar el comodín *. También puedes combinarlo con un prefijo para cargar solo los archivos que comiencen con una palabra específica en ese directorio.
+
+    // Importar absolutamente todos los archivos .la de la carpeta actual
+    importar ./*
+
+    // Importar todos los archivos .la de un directorio superior
+    importar ../matematicas/*
+
+    // Importar SOLO los archivos que comiencen con "maths" (ej. maths1.la, maths_avanzadas.la)
+    importar ./maths*
+
+    // Importar por prefijo desde una ruta absoluta
+    importar /home/usuario1/utilidades/core_*
+
+
+Nota: Al compilar el archivo principal, el compilador de LatinChain buscará en las rutas indicadas e incluirá automáticamente el código de todos los módulos encontrados dentro del binario final .lac.
 
 📖 Ejemplo de Código (Fibonacci)
 
@@ -122,7 +138,7 @@ Comentarios: Utiliza // para comentarios de una línea.
 
 Variables: Declaradas con la palabra variable. (Ej. variable año_actual = 2026;). La mayoría de las sentencias deben terminar con punto y coma ;.
 
-Importar: Incluye archivos externos usando importar ruta/del/modulo (el ; al final es opcional).
+Importar: Incluye archivos externos usando importar ruta/del/modulo o utilidades masivas como importar ./prefijo* (el ; al final es opcional).
 
 Imprimir: Muestra en consola utilizando imprimir(valor);.
 

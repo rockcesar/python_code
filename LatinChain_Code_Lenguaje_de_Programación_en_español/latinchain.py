@@ -117,14 +117,14 @@ class Parser:
         self.eat('KEYWORD', 'importar')
         module_name = ""
         
-        # Permitir rutas absolutas, relativas, con guiones y números
+        # Permitir rutas absolutas, relativas, con guiones, números y el comodín (*)
         while self.current() is not None:
             tok = self.current()
             if tok.type in ('IDENTIFIER', 'NUMBER'):
                 module_name += str(self.eat(tok.type).value)
             elif tok.type == 'PUNCTUATION' and tok.value == '.':
                 module_name += self.eat('PUNCTUATION', '.').value
-            elif tok.type == 'OPERATOR' and tok.value in ('/', '-'):
+            elif tok.type == 'OPERATOR' and tok.value in ('/', '-', '*'):
                 module_name += self.eat('OPERATOR', tok.value).value
             else:
                 break
@@ -250,6 +250,49 @@ class Compiler:
         if node[0] == 'IMPORT':
             module_name = node[1]
             current_dir = self.dir_stack[-1]
+            
+            # Verificar si es una importación con comodín (*)
+            if module_name.endswith('*'):
+                base_path = module_name[:-1] # Remover el asterisco
+                
+                # Extraer directorio y prefijo de forma manual para respetar los '/'
+                if '/' in base_path:
+                    dir_path = base_path.rsplit('/', 1)[0]
+                    file_prefix = base_path.rsplit('/', 1)[1]
+                    if dir_path == "": # Manejo de rutas desde la raíz ej: /* o /maths*
+                        dir_path = "/"
+                    original_dir = dir_path
+                else:
+                    dir_path = "."
+                    file_prefix = base_path
+                    original_dir = ""
+                    
+                if os.path.isabs(dir_path):
+                    target_dir = dir_path
+                else:
+                    target_dir = os.path.join(current_dir, dir_path)
+                    
+                target_dir = os.path.normpath(target_dir)
+                
+                if not os.path.isdir(target_dir):
+                    raise FileNotFoundError(f"Error de Compilación: El directorio '{target_dir}' no existe para la importación con comodín.")
+                
+                # Buscar todos los archivos .la que coincidan con el prefijo
+                archivos_importados = 0
+                for file_name in os.listdir(target_dir):
+                    if file_name.endswith('.la') and file_name.startswith(file_prefix):
+                        # Recrear el prefijo de importación omitiendo el .la
+                        if original_dir:
+                            sub_module = original_dir + "/" + file_name[:-3]
+                        else:
+                            sub_module = file_name[:-3]
+                        
+                        self.visit(('IMPORT', sub_module))
+                        archivos_importados += 1
+                        
+                if archivos_importados == 0:
+                    raise FileNotFoundError(f"Error de Compilación: No se encontraron módulos que coincidan con '{module_name}'.")
+                return
             
             # Determinar la ruta completa (resuelve relativas vs absolutas)
             if os.path.isabs(module_name):
