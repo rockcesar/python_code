@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # ==============================================================================
 # LATINCHAIN CODE - LENGUAJE DE PROGRAMACIÓN MULTIPLATAFORMA
 # Creador: Lcdo. César Cordero
@@ -31,13 +30,13 @@ if hasattr(sys.stdout, 'reconfigure'):
 # Convierte el código fuente en tokens comprensibles
 
 TOKEN_TYPES = [
-    ('COMMENT', r'//.*'),
+    ('COMMENT', r'//.*'), # Comentarios primero para evitar conflictos con la división (/)
     ('KEYWORD', r'\b(variable|si|mientras|imprimir|verdadero|falso|importar)\b'),
-    ('IDENTIFIER', r'[a-zA-Z_áéíóúÁÉÍÓÚñÑüÜ][a-zA-Z0-9_áéíóúÁÉÍÓÚñÑüÜ]*'),
+    ('IDENTIFIER', r'[a-zA-Z_áéíóúÁÉÍÓÚñÑüÜ][a-zA-Z0-9_áéíóúÁÉÍÓÚñÑüÜ]*'), # Soporte UTF-8
     ('NUMBER', r'\d+(\.\d+)?'),
     ('STRING', r'"[^"]*"'),
     ('OPERATOR', r'==|!=|<=|>=|<|>|\+|-|\*|/|='),
-    ('PUNCTUATION', r'[\(\)\{\};]'),
+    ('PUNCTUATION', r'[\(\)\{\};\.]'), # Añadido el punto (.) a los signos de puntuación
     ('WHITESPACE', r'\s+'),
 ]
 
@@ -116,10 +115,27 @@ class Parser:
 
     def parse_import(self):
         self.eat('KEYWORD', 'importar')
-        module_name = self.eat('IDENTIFIER').value
+        module_name = ""
+        
+        # Permitir rutas absolutas, relativas, con guiones y números
+        while self.current() is not None:
+            tok = self.current()
+            if tok.type in ('IDENTIFIER', 'NUMBER'):
+                module_name += str(self.eat(tok.type).value)
+            elif tok.type == 'PUNCTUATION' and tok.value == '.':
+                module_name += self.eat('PUNCTUATION', '.').value
+            elif tok.type == 'OPERATOR' and tok.value in ('/', '-'):
+                module_name += self.eat('OPERATOR', tok.value).value
+            else:
+                break
+                
+        if not module_name:
+            raise SyntaxError("Se esperaba una ruta o nombre de módulo después de 'importar'")
+            
         # Hacemos el punto y coma opcional al importar
         if self.current() and self.current().type == 'PUNCTUATION' and self.current().value == ';':
             self.eat('PUNCTUATION', ';')
+            
         return ('IMPORT', module_name)
 
     def parse_var_decl(self):
@@ -216,9 +232,10 @@ class Parser:
 # Convierte el AST en instrucciones de Máquina Virtual
 
 class Compiler:
-    def __init__(self):
+    def __init__(self, base_dir="."):
         self.instructions = []
-        self.imported_modules = set() # Evita bucles infinitos de importación
+        self.imported_modules = set() # Evita bucles infinitos de importación cruzada
+        self.dir_stack = [base_dir] # Pila de directorios para importaciones relativas
 
     def compile(self, ast):
         for stmt in ast:
@@ -232,12 +249,22 @@ class Compiler:
     def visit(self, node):
         if node[0] == 'IMPORT':
             module_name = node[1]
-            if module_name not in self.imported_modules:
-                self.imported_modules.add(module_name)
+            current_dir = self.dir_stack[-1]
+            
+            # Determinar la ruta completa (resuelve relativas vs absolutas)
+            if os.path.isabs(module_name):
                 filename = f"{module_name}.la"
+            else:
+                filename = os.path.join(current_dir, f"{module_name}.la")
+                
+            # Normalizar la ruta (aplica lógicamente los ./ y ../)
+            filename = os.path.normpath(filename)
+            
+            if filename not in self.imported_modules:
+                self.imported_modules.add(filename)
                 
                 if not os.path.exists(filename):
-                    raise FileNotFoundError(f"Error de Compilación: El módulo '{filename}' no fue encontrado en el directorio.")
+                    raise FileNotFoundError(f"Error de Compilación: El módulo '{module_name}' no fue encontrado en la ruta '{filename}'.")
                 
                 # Leer y compilar el módulo externo
                 with open(filename, 'r', encoding='utf-8') as f:
@@ -247,9 +274,16 @@ class Compiler:
                 parser = Parser(lexer.tokens)
                 module_ast = parser.parse()
                 
+                # Añadir el nuevo directorio base a la pila antes de entrar al módulo
+                new_dir = os.path.dirname(os.path.abspath(filename))
+                self.dir_stack.append(new_dir)
+                
                 # Inyectar las instrucciones del módulo en el programa principal
                 for stmt in module_ast:
                     self.visit(stmt)
+                    
+                # Sacar el directorio de la pila al terminar la importación
+                self.dir_stack.pop()
 
         elif node[0] == 'VAR_DECL' or node[0] == 'ASSIGN':
             self.visit(node[2])
@@ -350,6 +384,9 @@ def main():
 
     command = sys.argv[1]
     filename = sys.argv[2]
+    
+    # Obtenemos el directorio base del archivo principal de forma absoluta
+    base_dir = os.path.dirname(os.path.abspath(filename))
 
     if command == "run":
         if not filename.endswith('.la'):
@@ -363,7 +400,7 @@ def main():
         lexer = Lexer(source)
         parser = Parser(lexer.tokens)
         ast = parser.parse()
-        compiler = Compiler()
+        compiler = Compiler(base_dir) # Pasamos el directorio inicial
         bytecode = compiler.compile(ast)
         
         vm = VirtualMachine()
@@ -380,7 +417,7 @@ def main():
         lexer = Lexer(source)
         parser = Parser(lexer.tokens)
         ast = parser.parse()
-        compiler = Compiler()
+        compiler = Compiler(base_dir) # Pasamos el directorio inicial
         bytecode = compiler.compile(ast)
         
         out_filename = filename.replace('.la', '.lac')

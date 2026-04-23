@@ -1,0 +1,4 @@
+// matematicas.la
+variable pi = 3.1416;
+variable gravedad = 9.8;
+imprimir("=> Módulo de matemáticas cargado en memoria.");

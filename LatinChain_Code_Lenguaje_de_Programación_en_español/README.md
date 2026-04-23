@@ -2,32 +2,23 @@ LatinChain Code 🚀
 
 LatinChain Code es un lenguaje de programación multiplataforma, interpretado y compilado a bytecode, diseñado completamente con sintaxis en español. Fue creado con el propósito de ser una herramienta intuitiva y accesible para hispanohablantes, permitiendo escribir algoritmos de forma natural y clara.
 
-Creador: Lcdo. César Cordero.
+Creador: Lcdo. César Cordero
 
-Licencia: GNU GPLv3.
+Licencia: GNU GPLv3
 
-Basado en: Python 3 (Máquina Virtual y Compilador).
-
-INSTRUCCIONES DE USO (Requiere latinchain.py):
-1. Interpretar al vuelo:
-
-python3 latinchain.py run fibonacci.la
-
-2. Compilar a binario:
-
-python3 latinchain.py compile fibonacci.la
-
-3. Ejecutar binario:
-
-python3 latinchain.py exec fibonacci.lac
+Basado en: Python 3 (Máquina Virtual y Compilador)
 
 ✨ Características Principales
 
-🗣️ Sintaxis en Español: Palabras reservadas como variable, si, mientras, imprimir, verdadero y falso.
+🗣️ Sintaxis en Español: Palabras reservadas como variable, si, mientras, imprimir, verdadero, falso e importar.
+
+🌎 Soporte UTF-8 Nativo: Permite el uso de caracteres especiales del español (como la ñ y las vocales acentuadas) tanto en cadenas de texto como en nombres de variables y funciones.
+
+🧩 Sistema de Módulos Avanzado: Divide y organiza tu código en múltiples archivos y carpetas. El motor entiende el contexto del directorio actual y soporta importaciones mediante rutas relativas (./, ../) y absolutas (/).
 
 ⚡ Ejecución Directa (Intérprete): Capacidad de leer y ejecutar código fuente (archivos .la) al vuelo.
 
-📦 Compilación a Bytecode: Permite compilar el código fuente a archivos binarios ejecutables (archivos .lac) para proteger el código original y agilizar cargas.
+📦 Compilación a Bytecode: Permite compilar el código fuente a archivos binarios ejecutables (archivos .lac) para proteger el código original y agilizar cargas. Al compilar, todos los módulos importados se resuelven y empaquetan en un solo archivo binario.
 
 🌍 Multiplataforma: Al ejecutarse sobre su propia Máquina Virtual (VM) implementada en Python, corre perfectamente en Windows, Linux, macOS, Servidores, y es adaptable a web o móviles.
 
@@ -39,9 +30,8 @@ Para hacer funcionar el motor de LatinChain Code, solo necesitas tener instalado
 
 Clona este repositorio:
 
-git clone [https://github.com/rockcesar/python_code.git](https://github.com/rockcesar/python_code.git)
-
-cd python_code/LatinChain_Code_Lenguaje_de_Programación_en_español
+    git clone [https://github.com/rockcesar/python_code.git](https://github.com/rockcesar/python_code.git)
+    cd python_code/LatinChain_Code_Lenguaje_de_Programación_en_español
 
 
 Asegúrate de tener el archivo principal del motor: latinchain.py.
@@ -54,71 +44,91 @@ El motor CLI (Interfaz de Línea de Comandos) de LatinChain Code soporta tres op
 
 Ejecuta un archivo .la sin compilarlo previamente.
 
-python3 latinchain.py run mi_programa.la
+    python latinchain.py run mi_programa.la
 
 
 2. Compilar a binario (compile)
 
 Convierte un archivo .la en un archivo de bytecode con extensión .lac.
 
-python3 latinchain.py compile mi_programa.la
+    python latinchain.py compile mi_programa.la
 
 
 3. Ejecutar binario compilado (exec)
 
 Ejecuta un archivo .lac generado por el compilador.
 
-python3 latinchain.py exec mi_programa.lac
+    python latinchain.py exec mi_programa.lac
 
 
-📖 Ejemplo de Código
+🧩 Uso de Módulos (Importaciones)
 
-El siguiente es un ejemplo de un programa escrito en LatinChain Code que calcula la secuencia de Fibonacci. Puedes encontrar este ejemplo en el archivo fibonacci.la.
+LatinChain Code te permite organizar tu proyecto de forma profesional. Para incluir el código de otro archivo .la, utiliza la palabra reservada importar seguida del nombre del archivo o su ruta (sin la extensión).
 
-// Programa: Secuencia de Fibonacci
-// Escrito en LatinChain Code
+Importación en el mismo directorio:
 
-imprimir("--- SECUENCIA DE FIBONACCI ---");
+    importar matematicas
 
-variable limite = 100;
+    imprimir(pi);
 
-variable a = 0;
 
-variable b = 1;
+Importación usando rutas relativas y absolutas:
+El motor es capaz de navegar por tu sistema de archivos partiendo de la ubicación del script actual o leyendo la ruta absoluta.
 
-variable siguiente = 0;
+    // Desde una subcarpeta actual
+    importar ./utilidades/textos
 
-imprimir(a);
+    // Desde un directorio superior
+    importar ../modulos/core/sistema
 
-imprimir(b);
+    // Desde una ruta absoluta en el sistema operativo
+    importar /home/usuario1/matematicas/maths
 
-siguiente = a + b;
 
-mientras (siguiente <= limite) {
-    
-    imprimir(siguiente);
-    
-    a = b;
-    
-    b = siguiente;
-    
+Nota: Al compilar el archivo principal, el compilador de LatinChain buscará en las rutas indicadas e incluirá automáticamente el código de todos los módulos dentro del binario final .lac.
+
+📖 Ejemplo de Código (Fibonacci)
+
+El siguiente es un ejemplo de un programa escrito en LatinChain Code que calcula la secuencia de Fibonacci utilizando un bucle mientras.
+
+    // Programa: Secuencia de Fibonacci
+    // Escrito en LatinChain Code
+
+    imprimir("--- SECUENCIA DE FIBONACCI ---");
+
+    variable límite = 100;
+    variable a = 0;
+    variable b = 1;
+    variable siguiente = 0;
+
+    imprimir(a);
+    imprimir(b);
+
     siguiente = a + b;
-}
 
-imprimir("Programa finalizado con exito.");
+    mientras (siguiente <= límite) {
+        imprimir(siguiente);
+        a = b;
+        b = siguiente;
+        siguiente = a + b;
+    }
+
+    imprimir("Programa finalizado con éxito.");
 
 
 📜 Sintaxis Básica
 
 Comentarios: Utiliza // para comentarios de una línea.
 
-Variables: Declaradas con la palabra variable. (Ej. variable x = 10;). Todas las sentencias deben terminar con punto y coma ;.
+Variables: Declaradas con la palabra variable. (Ej. variable año_actual = 2026;). La mayoría de las sentencias deben terminar con punto y coma ;.
+
+Importar: Incluye archivos externos usando importar ruta/del/modulo (el ; al final es opcional).
 
 Imprimir: Muestra en consola utilizando imprimir(valor);.
 
-Condicionales: Estructura si (condicion) { ... }.
+Condicionales: Estructura si (condición) { ... }.
 
-Ciclos: Bucle mientras (condicion) { ... }.
+Ciclos: Bucle mientras (condición) { ... }.
 
 Operadores: +, -, *, /, ==, !=, <, >, <=, >=.
 

@@ -1,0 +1,6 @@
+// principal.la
+importar ./maths
+
+imprimir("Estamos en el programa principal.");
+imprimir("El valor de PI es:");
+imprimir(pi);
