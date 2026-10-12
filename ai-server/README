@@ -1,0 +1,17 @@
+IA HECHA EN VENEZUELA USANDO MODELOS DE LENGUAJES EXTERNOS
+
+Developed with the help of Gemini AI
+Prerequisites (it will downloads heavy files, Nvidia, etc.):
+
+USE THIS COMMAND FOR NVIDIA (DON'T USE IT IN LOW INTERNET CONNECTION)
+pip install torch transformers accelerate
+
+USE THIS COMMAND FOR CPU
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install transformers accelerate
+
+THEN EXECUTE:
+python3 ai-server.py
+
+THEN ACCESS TO:
+http://localhost:3000/
